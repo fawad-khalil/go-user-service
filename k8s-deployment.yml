@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      # restartPolicy: OnFailure
+      containers:
+      - name: user-service
+        image: localhost:5000/user-service
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+        # livenessProbe:           # To check the health of the Pod
+        #   httpGet:
+        #     path: /health
+        #     port: 8080
+        #     scheme: HTTP
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 15
+        #   timeoutSeconds: 5
+        # readinessProbe:          # To check if the Pod is ready to serve traffic or not
+        #     httpGet:
+        #       path: /readiness
+        #       port: 8080
+        #       scheme: HTTP
+        #     initialDelaySeconds: 5
+        #     timeoutSeconds: 1   

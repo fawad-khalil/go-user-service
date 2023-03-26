@@ -1,0 +1,1 @@
+Run docker build . -t fawadkhalil/user-service
